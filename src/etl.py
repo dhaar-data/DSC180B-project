@@ -72,7 +72,7 @@ def split(data):
     testsize = 2/3 # divides into train and test+val
     valsize = 1/2 # divides test and validation
     
-    X_train, X, y_train, y = model_selection.train_test_split(tweets['tweet_text'], tweets['party'], test_size=testsize, random_state=42)
-    X_test, X_validation, y_test, t_validation = model_selection.train_test_split(X, y, test_size=valsize, random_state=42)
+    X_train, X, y_train, y = model_selection.train_test_split(data['tweet_text'], data['party'], test_size=testsize, random_state=42)
+    X_test, X_validation, y_test, y_validation = model_selection.train_test_split(X, y, test_size=valsize, random_state=42)
     
     return X_train, X_test, X_validation, y_train, y_test, y_validation
