@@ -1,0 +1,7 @@
+{
+    "access_token": "XXXXXXXXXXXXXXXXXXXXXX",
+    "access_token_secret": "XXXXXXXXXXXXXXXXXXXXXX",
+    "api_key": "XXXXXXXXXXXXXXXXXXXXXX",
+    "api_key_secret": "XXXXXXXXXXXXXXXXXXXXXX",
+    "output": "data/tweets.csv"
+}
