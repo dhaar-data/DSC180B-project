@@ -18,7 +18,7 @@ def scrape_data(access_token, access_token_secret, api_key, api_key_secret, outp
 
     # credit to https://ucsd.libguides.com/congress_twitter/home 
     # politician method (chris smith NJ, jefferson van drew NJ have deleted twitter accounts)
-    handles = pd.read_excel('../data/congress.xlsx')
+    handles = pd.read_excel('data/congress.xlsx')
     handles['Link'] = handles['Link'].str.replace('https://twitter.com/', '')
 
     count = 100
@@ -72,7 +72,7 @@ def split(data):
     testsize = 2/3 # divides into train and test+val
     valsize = 1/2 # divides test and validation
     
-    X_train, X, y_train, y = model_selection.train_test_split(data['tweet_text'], data['party'], test_size=testsize, random_state=42)
+    X_train, X, y_train, y = model_selection.train_test_split(data[['tweet_text', 'no_stop_words']], data['party'], test_size=testsize, random_state=42)
     X_test, X_validation, y_test, y_validation = model_selection.train_test_split(X, y, test_size=valsize, random_state=42)
     
     return X_train, X_test, X_validation, y_train, y_test, y_validation
