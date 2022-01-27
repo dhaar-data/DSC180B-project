@@ -3,5 +3,5 @@
     "access_token_secret": "XXXXXXXXXXXXXXXXXXXXXX",
     "api_key": "XXXXXXXXXXXXXXXXXXXXXX",
     "api_key_secret": "XXXXXXXXXXXXXXXXXXXXXX",
-    "output": "data/tweets.csv"
+    "output": ["data/tweets.csv", "data/train.csv", "data/test.csv", "data/validation.csv"]
 }
