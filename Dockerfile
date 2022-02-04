@@ -19,10 +19,7 @@ LABEL maintainer="UC San Diego ITS/ETS <ets-consult@ucsd.edu>"
 # 2) change to root to install packages
 USER root
 
-RUN apt -y install htop \
-    -y aria2 \
-    -y nmap \
-    -y traceroute
+RUN apt-get -y install htop
 
 # 3) install packages using notebook user
 USER jovyan
