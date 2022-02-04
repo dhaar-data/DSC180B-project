@@ -1,7 +1,5 @@
 {
-    "access_token": "XXXXXXXXXXXXXXXXXXXXXX",
-    "access_token_secret": "XXXXXXXXXXXXXXXXXXXXXX",
-    "api_key": "XXXXXXXXXXXXXXXXXXXXXX",
-    "api_key_secret": "XXXXXXXXXXXXXXXXXXXXXX",
-    "output": ["data/tweets.csv", "data/train.csv", "data/test.csv", "data/validation.csv"]
+    "data_path": "data/raw/tweets.csv",
+    "X_output": ["data/out/clean/X_train.csv", "data/out/clean/X_test.csv", "data/out/clean/X_validation.csv"],
+    "y_output": ["data/out/clean/y_train.csv", "data/out/clean/y_test.csv", "data/out/clean/y_validation.csv"]
 }

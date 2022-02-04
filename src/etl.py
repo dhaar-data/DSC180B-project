@@ -8,41 +8,14 @@ from nltk.corpus import stopwords
 from unidecode import unidecode
 nltk.download('stopwords')
 
-def scrape_data(access_token, access_token_secret, api_key, api_key_secret, output):
+def transform_data(data_path, X_output, y_output):
     """
-    Scraping tweets from Twitter.
+    Cleaning text (removing punctuation, stop words, etc.), and splitting into train-test-validation dataset. Divides into equal thirds with random state 42.
     """
-    auth = tweepy.OAuthHandler(api_key, api_key_secret)
-    auth.set_access_token(access_token, access_token_secret)
-
-    api = tweepy.API(auth, wait_on_rate_limit=True)
-
-    # credit to https://ucsd.libguides.com/congress_twitter/home 
-    # politician method (chris smith (NJ), jefferson van drew (NJ) have deleted twitter accounts)
-    handles = pd.read_excel('data/congress.xlsx')
-    handles['Link'] = handles['Link'].str.replace('https://twitter.com/', '')
-
-    count = 300
-    tweets_lst = []
-
-    for userID in handles['Link']:
-        try:
-            user = api.user_timeline(screen_name=userID, count=count, include_rts=False, tweet_mode='extended')
-
-        except Exception as e:
-            print(userID)
-            print(repr(e))
-            break
-
-        party = handles.loc[handles['Link'] == userID, 'Party'].iloc[0]
-        
-        for tweet in user:
-            tweets_lst.append((tweet.full_text, party))
-
-    tweets = pd.DataFrame(tweets_lst, columns = ['tweet_text', 'party'])
-    tweets.to_csv(output[0], index=False)
+    data = pd.read_csv(data_path)
+    cleaned_data = clean_data(data)
     
-    return tweets
+    return split(cleaned_data, X_output, y_output)
 
 def clean_data(data):
     """
@@ -64,22 +37,61 @@ def clean_data(data):
     # removing stop words
     stop_words = '|'.join(stopwords.words('english'))
     data['tweet_text'] = data['tweet_text'].apply(lambda x: ' '.join([word for word in x.split() if word not in stop_words]))
-    data = data.fillna('')
+    data = data.dropna()
     
     return data
 
-def split(data, output, **kwargs):
+def split(data, X_output, y_output):
     """
     Split into train-test-validation dataset. Divides into equal thirds. Random state 42.
     """
     testsize = 2/3 # divides into train and test+val
     valsize = 1/2 # divides test and validation
     
-    X_train, X, y_train, y = model_selection.train_test_split(data[['tweet_text', 'no_stop_words']], data['party'], test_size=testsize, random_state=42)
+    X_train, X, y_train, y = model_selection.train_test_split(data['tweet_text'], data['party'], test_size=testsize, random_state=42)
     X_test, X_validation, y_test, y_validation = model_selection.train_test_split(X, y, test_size=valsize, random_state=42)
     
-    pd.concat([X_train, y_train], axis=1).to_csv(output[1], index=False)
-    pd.concat([X_test, y_test], axis=1).to_csv(output[2], index=False)
-    pd.concat([X_validation, y_validation], axis=1).to_csv(output[3], index=False)
+    X_train.to_csv(X_output[0], index=False)
+    X_test.to_csv(X_output[1], index=False)
+    X_validation.to_csv(X_output[2], index=False)
+    
+    y_train.to_csv(y_output[0], index=False)
+    y_test.to_csv(y_output[1], index=False)
+    y_validation.to_csv(y_output[2], index=False)
+    
+    return
 
-    return X_train, X_test, X_validation, y_train, y_test, y_validation
+def scrape_data(access_token, access_token_secret, api_key, api_key_secret, output):
+    """
+    Scraping tweets from Twitter.
+    """
+    auth = tweepy.OAuthHandler(api_key, api_key_secret)
+    auth.set_access_token(access_token, access_token_secret)
+
+    api = tweepy.API(auth, wait_on_rate_limit=True)
+
+    # politician method (chris smith NJ, jefferson van drew NJ have deleted twitter accounts)
+    handles = pd.read_excel('data/raw/congress.xlsx') # credit to https://ucsd.libguides.com/congress_twitter/home 
+    handles['Link'] = handles['Link'].str.replace('https://twitter.com/', '')
+
+    count = 300
+    tweets_lst = []
+
+    for userID in handles['Link']:
+        try:
+            user = api.user_timeline(screen_name=userID, count=count, include_rts=False, tweet_mode='extended')
+
+        except Exception as e:
+            print(userID)
+            print(repr(e))
+            break
+
+        party = handles.loc[handles['Link'] == userID, 'Party'].iloc[0]
+        
+        for tweet in user:
+            tweets_lst.append((tweet.full_text, party))
+
+    tweets = pd.DataFrame(tweets_lst, columns = ['tweet_text', 'party'])
+    tweets.to_csv(output, index=False)
+    
+    return

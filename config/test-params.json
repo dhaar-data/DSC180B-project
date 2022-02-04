@@ -1,0 +1,5 @@
+{
+    "data_path": "test/testdata/test_data.csv",
+    "X_output": ["data/out/clean/X_train.csv", "data/out/clean/X_test.csv", "data/out/clean/X_validation.csv"],
+    "y_output": ["data/out/clean/y_train.csv", "data/out/clean/y_test.csv", "data/out/clean/y_validation.csv"]
+}

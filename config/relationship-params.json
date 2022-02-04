@@ -1,0 +1,4 @@
+{
+    "X_path": "data/out/predicted/X_test.txt",
+    "y_path": "data/out/clean/y_test.csv"
+}

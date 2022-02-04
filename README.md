@@ -5,7 +5,7 @@ As said above, this statistical analyses also functions as an investigation of t
 
 ## Build Instructions
 This project has already provided pre-scraped Twitter data in `data/out/raw`. However, if you wish to attempt this on a fresh validation dataset (as the training and testing dataset cannot be changed), we have also provided an option for that.
-* Data Collection: To clean and split the data into train-test-validation sets, run `python run.py data`. The datasets will be stored in `data/out/clean` in separate csvs for covariates and outcomes. 
+* Data Collection: To clean and split the data into train-test-validation sets, run `python run.py data`. The datasets will be stored in `data/out/clean` in separate .csvs for covariates and outcomes. 
 * EDA: TO-DO
 * Prediction: To build the prediction model and predict the outcomes of the datasets, run `python run.py predict`. The predicted values will be stored in `data/out/predicted` in txt files.
 * Relationship: To build the relationship model based on the predicted and observed outcomes from the test dataset, run `python run.py relationship`.
@@ -14,7 +14,7 @@ This project has already provided pre-scraped Twitter data in `data/out/raw`. Ho
 * Inference/Bootstrapping: TO-DO
 * Run all:
     * To run the entire process on the dataset specified in `config/data-params.json`, run `python run.py all`
-    * To run this process on test data, run `python run.py test`
+    * To run the entire process on test data in `test/testdata`, run `python run.py test`
     
 ## Running the Project
 1. Clone this repo
@@ -26,7 +26,7 @@ This project has already provided pre-scraped Twitter data in `data/out/raw`. Ho
     docker build -t ##
     docker run --rm -it ## /bin/bash.
     ```
-3. Run the project according to build instructions above.
+3. Run the project according to build instructions above. As an example:
     ```
     python run.py all
     ```

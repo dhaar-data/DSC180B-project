@@ -4,40 +4,69 @@ import os
 
 sys.path.insert(0, 'src')
 import etl
-import prediction_model
-import relationship_model
+import prediction
+import relationship
+import inference
 
 def main(targets):
     
-    # TO-DO:
-    ## Write EDA notebook for scraped data
-    ## Inference model, bootstrap correction
-    ## Code: Decide where/when we should write data to csv, what parameters should be, etc.
+    if 'data' in targets:
+        
+        data_config = json.load(open('config/data-params.json'))
+        X_train, X_test, X_validation, y_train, y_test, y_validation = etl.transform_data(**test_config)
+        
+    # if 'eda' in targets:
+        
+        # TO-DO
     
-    if 'etl' in targets:
-        
-        data_config = json.load(open('config/data-params.json')) 
-        tweets = etl.scrape_data(**data_config)
-        cleaned_tweets = etl.clean_data(tweets)
-        X_train, X_test, X_validation, y_train, y_test, y_validation = etl.split(cleaned_tweets, **data_config) # writes to a csv
-        
     if 'predict' in targets:
         
-        tf_idf = prediction_model.vectorizer(X_train)
+        pred_config = json.load(open('config/predict-params.json'))
         
-        train_vec = tf_idf.transform(X_train)
-        test_vec = tf_idf.transform(X_test)
-        val_vec = tf_idf.transform(X_validation)
-        
-        pred_mdl = prediction_model.model(train_vec, y_train)
-        # do we want these to be written to a csv?
-        pred_test = prediction_model.predict(test_vec, y_train, pred_mdl)
-        pred_val = prediction_model.predict(val_vec, y_validation, pred_mdl)
+        tf_idf, pred_mdl = prediction.build_model(**pred_config)
+        pred_test, pred_validation = prediction.transform_predict(tf_idf, pred_mdl, **pred_config)
         
     if 'rel' in targets:
         
-        rel_mdl = relationship_model.model(pred_test, y_test)
-
+        rel_config = json.load(open('config/relationship-params.json'))
+        rel_mdl = relationship.model(**rel_config)
+        
+    # if 'inference' in targets:
+        
+        # TO-DO
+        # inference on validation targets
+        
+    # if 'scrape' in targets:
+        
+        # offer scrape validation data function
+        # tweets = etl.scrape_data(**data_config)
+        
+    if 'all' in targets:
+        
+        data_config = json.load(open('config/data-params.json'))
+        pred_config = json.load(open('config/predict-params.json'))
+        rel_config = json.load(open('config/relationship-params.json'))
+        
+        etl.transform_data(**data_config)
+        
+        tf_idf, pred_mdl = prediction.build_model(**pred_config)
+        prediction.transform_predict(tf_idf, pred_mdl, **pred_config)
+        
+        rel_mdl = relationship.model(**rel_config)
+        
+    if 'test' in targets:
+        
+        test_config = json.load(open('config/test-params.json'))
+        pred_config = json.load(open('config/predict-params.json'))
+        rel_config = json.load(open('config/relationship-params.json'))
+        
+        etl.transform_data(**test_config)
+        
+        tf_idf, pred_mdl = prediction.build_model(**pred_config)
+        prediction.transform_predict(tf_idf, pred_mdl, **pred_config)
+        
+        rel_mdl = relationship.model(**rel_config)
+        
 
 if __name__ == '__main__':
     
