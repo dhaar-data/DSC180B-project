@@ -30,3 +30,8 @@ This project has already provided pre-scraped Twitter data in `data/out/raw`. Ho
     ```
     python run.py all
     ```
+    
+## Link to project website
+```
+https://dhaar-data.github.io/DSC180B-project/
+```
