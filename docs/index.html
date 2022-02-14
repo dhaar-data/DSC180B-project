@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Home</title>
+
+        <link rel="stylesheet" href="main.css">
+
+    </head>
+    <body>
+
+        <header>
+            <p>DSC180B Project</p>
+        </header>
+
+        <nav>
+            <ul>
+                <li class="nav-item"><a href="#intro">Intro</a></li>
+                <li class="nav-item"><a href="#methodology">Methodology</a></li>
+                <li class="nav-item"><a href="#data">Data</a></li>
+                <li class="nav-item"><a href="#methods">Methods</a></li>
+                <li class="nav-item"><a href="#results">Results</a></li>
+                <li class="nav-item"><a href="#conclusion">Conclusion</a></li>
+            </ul>
+        </nav>
+
+        <div id="main-body">
+            <h2 id="intro">Introduction</h2>
+            <p>
+                Machine learning is a modern task in data science that uses observed data 
+                values to model and predict data. It takes advantage of having observed data 
+                available, but what should be done when observed data cannot be obtained? A 
+                common practice is to use predicted values when observed values are 
+                unavailable, but without any corrections we inevitably run into issues such 
+                as deflated standard errors, bias, and inflated false positive rates.
+                <br><br>
+                Wang et al. proposes a method to correct inference done on predicted 
+                outcomes–which they name post-prediction inference, or postpi–in Methods for 
+                correcting inference based on outcomes predicted by machine learning. This 
+                statistical technique takes advantage of the standard structure for machine 
+                learning and uses bootstrapping to correct statistical error using predicted 
+                values in place of observed values.
+                <br><br>
+                We are exploring the applicability of Wang et al.’s postpi bootstrapping 
+                technique on political data–that is, on political twitter posts. Our project 
+                will be investigating what kinds of phrases or words in a tweet will strongly 
+                indicate a person’s political alignment, in the context of US politics. By 
+                doing so, we can simultaneously test how the bootstrap post-prediction 
+                inference approach interacts with Natural Language Processing models and how 
+                this method can be generally applicable towards analyses in political science.
+            </p>
+            <h2 id="methodology">Methodology</h2>
+            <h2 id="data">Data</h2>
+            <h2 id="methods">Methods</h2>
+            <h2 id="results">Results</h2>
+            <h2 id="conclusion">Conclusion</h2>
+        </div>
+
+        <footer>
+            Footer
+        </footer>
+
+        <script src="main.js"></script>
+
+    </body>
+</html>
