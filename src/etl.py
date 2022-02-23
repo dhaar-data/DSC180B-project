@@ -35,7 +35,9 @@ def clean_data(data):
     data['tweet_text'] = data['tweet_text'].map(unidecode) # standardizing font
     
     # removing stop words
-    stop_words = '|'.join(stopwords.words('english'))
+    stop_words = stopwords.words('english')
+    stop_words.remove('the')
+    stop_words = '|'.join(stop_words)
     data['tweet_text'] = data['tweet_text'].apply(lambda x: ' '.join([word for word in x.split() if word not in stop_words]))
     data = data.dropna()
     

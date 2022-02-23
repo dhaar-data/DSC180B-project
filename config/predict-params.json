@@ -2,5 +2,5 @@
     "X_train": "data/out/clean/X_train.csv",
     "y_train": "data/out/clean/y_train.csv",
     "X_input": ["data/out/clean/X_test.csv", "data/out/clean/X_validation.csv"],
-    "X_output": ["data/out/predicted/X_test.txt", "data/out/predicted/X_validation.txt"]
+    "X_output": ["data/out/predicted/y_test.txt", "data/out/predicted/y_validation.txt"]
 }

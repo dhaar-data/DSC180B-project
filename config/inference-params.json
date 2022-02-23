@@ -1,0 +1,19 @@
+{
+    "bs": 100,
+    "features": ["access", "affordable", "america", "american",
+        "assistance", "attack", "biden", "biden administration", "bill", "bipartisan", "border",
+        "capitol", "care", "celebrate", "change",
+        "child", "children", "china", "colleagues", "community", "congress", "control",
+        "country", "court", "crisis", "critical", "debt", "democracy", "democrats", "deserve", "economic", "economy",
+        "election", "enforcement", "ensure", "family", "federal", "fight",
+        "free", "freedom", "funding", "give", "good", "government",
+        "great", "happy", "health", "health care", "help", "home", "honor", "hope", "illegal",
+        "issues", "jobs", "justice", "law", "lead", "leadership", "left", "local", "loved ones", "mandate",
+        "military", "nation", "national", "needs", "people", "power",
+        "president", "prices", "protect", "proud", "provide", "republicans",
+        "right", "rights", "safety", "school", "security", "senate", "serve", "service", "small businesses",
+        "spending", "state", "stop", "students", "support", "system", "tax",
+        "united", "veterans", "violence", "vote", "voting", "voting rights", "workers", "working"],
+    "input_paths": ["data/out/clean/X_validation.csv", "data/out/clean/y_validation.csv", "data/out/predicted/y_validation.txt"],
+    "output_paths": ["results/inference/estimators.csv", "results/inference/ses.csv", "results/inference/t_stat.csv"]
+}

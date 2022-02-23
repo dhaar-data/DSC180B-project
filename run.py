@@ -13,7 +13,7 @@ def main(targets):
     if 'data' in targets:
         
         data_config = json.load(open('config/data-params.json'))
-        X_train, X_test, X_validation, y_train, y_test, y_validation = etl.transform_data(**test_config)
+        etl.transform_data(**test_config)
         
     # if 'eda' in targets:
         
@@ -24,17 +24,17 @@ def main(targets):
         pred_config = json.load(open('config/predict-params.json'))
         
         tf_idf, pred_mdl = prediction.build_model(**pred_config)
-        pred_test, pred_validation = prediction.transform_predict(tf_idf, pred_mdl, **pred_config)
+        prediction.transform_predict(tf_idf, pred_mdl, **pred_config)
         
     if 'rel' in targets:
         
         rel_config = json.load(open('config/relationship-params.json'))
         rel_mdl = relationship.model(**rel_config)
         
-    # if 'inference' in targets:
+    if 'inference' in targets:
         
-        # TO-DO
-        # inference on validation targets
+        inf_config = json.load(open('config/inference-params.json'))
+        estimators_df, ses_df, t_stat_df, rmses = inference.conduct_inference(rel_mdl, tf_idf, pred_mdl, **inf_config)
         
     # if 'scrape' in targets:
         
@@ -46,6 +46,7 @@ def main(targets):
         data_config = json.load(open('config/data-params.json'))
         pred_config = json.load(open('config/predict-params.json'))
         rel_config = json.load(open('config/relationship-params.json'))
+        inf_config = json.load(open('config/inference-params.json'))
         
         etl.transform_data(**data_config)
         
@@ -53,12 +54,14 @@ def main(targets):
         prediction.transform_predict(tf_idf, pred_mdl, **pred_config)
         
         rel_mdl = relationship.model(**rel_config)
+        estimators_df, ses_df, t_stat_df, rmses = inference.conduct_inference(rel_mdl, tf_idf, pred_mdl, **inf_config)
         
     if 'test' in targets:
         
         test_config = json.load(open('config/test-params.json'))
         pred_config = json.load(open('config/predict-params.json'))
         rel_config = json.load(open('config/relationship-params.json'))
+        inf_config = json.load(open('config/inference-params.json'))
         
         etl.transform_data(**test_config)
         
@@ -66,7 +69,7 @@ def main(targets):
         prediction.transform_predict(tf_idf, pred_mdl, **pred_config)
         
         rel_mdl = relationship.model(**rel_config)
-        
+        estimators_df, ses_df, t_stat_df, rmses = inference.conduct_inference(rel_mdl, tf_idf, pred_mdl, **inf_config)
 
 if __name__ == '__main__':
     

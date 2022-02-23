@@ -9,9 +9,9 @@ This project has already provided pre-scraped Twitter data in `data/out/raw`. Ho
 * EDA: TO-DO
 * Prediction: To build the prediction model and predict the outcomes of the datasets, run `python run.py predict`. The predicted values will be stored in `data/out/predicted` in txt files.
 * Relationship: To build the relationship model based on the predicted and observed outcomes from the test dataset, run `python run.py relationship`.
+* Inference/Bootstrapping: To conduct the bootstrap post-prediction inference on selected features, run `python run.py inference`. This will output estimators, standard errors, and t-statistics of the features. RMSE will be printed to console.
 * Scrape: TO-DO
     * Note that a Twitter developer account is necessary for this step. Once you have made an account, go to `config/data-params.json` and input your access keys and tokens provided to you by Twitter. 
-* Inference/Bootstrapping: TO-DO
 * Run all:
     * To run the entire process on the dataset specified in `config/data-params.json`, run `python run.py all`
     * To run the entire process on test data in `test/testdata`, run `python run.py test`
