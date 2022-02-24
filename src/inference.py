@@ -130,7 +130,7 @@ def bootstrap(bs, sample, rel_mdl, val_x, val_y, val_y_pred):
            val_y_pred validation predicted outcomes
     Output: dictionary containing the parametric and non-parametric corrected estimator, standard error, and t-statistic
     """
-    class_dict = {0: 'D', 1: 'R'}
+    # class_dict = {0: 'D', 1: 'R'}
     estimators = []
     ses = []
     
@@ -143,10 +143,13 @@ def bootstrap(bs, sample, rel_mdl, val_x, val_y, val_y_pred):
 
         # using relationship model to predict probabilities and find the predicted y
         probabilities = rel_mdl.predict_proba(sample_y)
-        new_predicted_y = []
-        for row in sample_y:
-            probability = np.random.multinomial(1, row)
-            new_predicted_y.append(class_dict[np.where(probability==1)[0][0]])
+        sim_probabilities = np.random.binomial(1, probabilities)
+        new_predicted_y = ['D' if i[1] == 0 else 'R' for i in sim_probabilities]
+
+        # new_predicted_y = []
+        # for row in sample_y:
+        #     probability = np.random.multinomial(1, row)
+        #     new_predicted_y.append(class_dict[np.where(probability==1)[0][0]])
         
         # fitting inference model
         new_mdl = sklearn.linear_model.LogisticRegression().fit(sample_x, new_predicted_y) 
