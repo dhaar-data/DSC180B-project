@@ -39,7 +39,7 @@ def conduct_inference(rel_mdl, tf_idf, pred_mdl, bs, features, input_paths, outp
     i = 0 # counter for number of features
     for feature in features_index:
         # remove these later
-        print(i) 
+        
         i += 1
                 
         bootstrap_results = bootstrap(bs, sample_size, rel_mdl, val_x.tocsr()[:,feature].todense(), val_y, val_y_pred)
@@ -72,22 +72,22 @@ def conduct_inference(rel_mdl, tf_idf, pred_mdl, bs, features, input_paths, outp
     
     # calculating rmses
     rmses = {'estimators': [], 'ses': [], 't_stats': []}
-    for cat in pd.unique(estimators_df['category']):
-        error = rmse(estimators_df[estimators_df['category'] == cat]['true'].reset_index(drop=True),
-                     estimators_df[estimators_df['category'] == cat]['predicted'].reset_index(drop=True))
-        rmses['estimators'].append((cat, error))
+#     for cat in pd.unique(estimators_df['category']):
+#         error = rmse(estimators_df[estimators_df['category'] == cat]['true'].reset_index(drop=True),
+#                      estimators_df[estimators_df['category'] == cat]['predicted'].reset_index(drop=True))
+#         rmses['estimators'].append((cat, error))
     
-    for cat in pd.unique(ses_df['category']):
-        error = rmse(ses_df[ses_df['category'] == cat]['true'].reset_index(drop=True),
-                     ses_df[ses_df['category'] == cat]['predicted'].reset_index(drop=True))
-        rmses['ses'].append((cat, error))
+#     for cat in pd.unique(ses_df['category']):
+#         error = rmse(ses_df[ses_df['category'] == cat]['true'].reset_index(drop=True),
+#                      ses_df[ses_df['category'] == cat]['predicted'].reset_index(drop=True))
+#         rmses['ses'].append((cat, error))
 
-    for cat in pd.unique(t_stat_df['category']):
-        error = rmse(t_stat_df[t_stat_df['category'] == cat]['true'].reset_index(drop=True),
-                     t_stat_df[t_stat_df['category'] == cat]['predicted'].reset_index(drop=True))
-        rmses['t_stats'].append((cat, error))
+#     for cat in pd.unique(t_stat_df['category']):
+#         error = rmse(t_stat_df[t_stat_df['category'] == cat]['true'].reset_index(drop=True),
+#                      t_stat_df[t_stat_df['category'] == cat]['predicted'].reset_index(drop=True))
+#         rmses['t_stats'].append((cat, error))
 
-    print(rmses)
+#     print(rmses)
     return estimators_df, ses_df, t_stat_df, rmses
 
 def rmse(y, y_pred):
@@ -110,7 +110,7 @@ def standard_error(X, y_pred):
     new_x = np.hstack([np.ones((X.shape[0], 1)), X])
 
     V = np.diagflat(np.product(y_pred, axis=1))
-    cov = np.linalg.pinv(np.dot(np.dot(new_x.T, V), new_x))
+    cov = np.linalg.inv(np.dot(np.dot(new_x.T, V), new_x))
     return np.sqrt(np.diag(cov))
 
 def no_bootstrap(val_x, val_y):
