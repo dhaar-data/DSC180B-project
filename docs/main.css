@@ -3,7 +3,7 @@
 }
 
 body {
-    background: whitesmoke;
+    background: white;
 }
 
 h2 {
@@ -14,6 +14,7 @@ h2 {
 
 p {
     color: #333333;
+    font-size: 18px;
 }
 
 header {
@@ -24,7 +25,7 @@ header {
 }
 
 header p {
-    color: whitesmoke;
+    color: white;
     vertical-align: middle;
 }
 
@@ -64,17 +65,84 @@ nav ul li {
     align-items: center;
     justify-content: center;
     text-decoration: none;
-    color: whitesmoke;
+    color: white;
 }
 
 .nav-item a:hover {
-    background-color: whitesmoke;
+    background-color: white;
     color: #333333;
 }
 
 #main-body {
-    height: 750px;
+    height: 4000px;
     padding-top: 50px;
+}
+
+#main-body h2 {
+    text-align: left;
+    margin-left: 10%;
+}
+
+#main-body h3 {
+    text-align: center;
+}
+
+#main-body p {
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+#psuedocode {
+    width: 750px;
+    height: 350px;
+    margin-left: 10%;
+}
+
+#class-counts {
+    border-collapse: collapse;
+    width: 30%;
+    margin-left: 35%;
+}
+
+#class-counts td {
+    border: 1px solid black;
+    text-align: left;
+    padding: 10px;
+}
+
+#figure1 {
+    width: 500px;
+    height: 350px;
+    margin-left: calc(50% - 250px);
+}
+
+#figure1-caption {
+    margin-left: 10%;
+    font-size: 18px;
+}
+
+#figure2 img {
+    width: 1200px;
+    height: 400px;
+    margin-left: calc(50% - 600px);
+}
+
+#figure2 figcaption {
+    width: 600px;
+    margin-left: calc(50% - 300px);
+    font-size: 18px;
+}
+
+#words {
+    border-collapse: collapse;
+    width: 30%;
+    margin-left: 35%;
+}
+
+#words td {
+    border: 1px solid black;
+    text-align: center;
+    padding: 10px;
 }
 
 footer {
