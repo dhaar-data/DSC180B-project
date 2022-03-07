@@ -4,6 +4,7 @@ import os
 
 sys.path.insert(0, 'src')
 import etl
+import eda
 import prediction
 import relationship
 import inference
@@ -13,11 +14,12 @@ def main(targets):
     if 'data' in targets:
         
         data_config = json.load(open('config/data-params.json'))
-        etl.transform_data(**test_config)
+        etl.transform_data(**data_config)
         
-    # if 'eda' in targets:
+    if 'eda' in targets:
         
-        # TO-DO
+        eda_config = json.load(open('config/eda-params.json'))
+        eda.conduct_eda(**eda_config)
     
     if 'predict' in targets:
         
@@ -34,7 +36,7 @@ def main(targets):
     if 'inference' in targets:
         
         inf_config = json.load(open('config/inference-params.json'))
-        estimators_df, ses_df, t_stat_df, rmses = inference.conduct_inference(rel_mdl, tf_idf, pred_mdl, **inf_config)
+        estimators_df, ses_df, t_stat_df = inference.conduct_inference(rel_mdl, tf_idf, pred_mdl, **inf_config)
         
     # if 'scrape' in targets:
         
@@ -44,17 +46,20 @@ def main(targets):
     if 'all' in targets:
         
         data_config = json.load(open('config/data-params.json'))
+        eda_config = json.load(open('config/eda-params.json'))
         pred_config = json.load(open('config/predict-params.json'))
         rel_config = json.load(open('config/relationship-params.json'))
         inf_config = json.load(open('config/inference-params.json'))
         
         etl.transform_data(**data_config)
         
+        eda.conduct_eda(**eda_config)
+        
         tf_idf, pred_mdl = prediction.build_model(**pred_config)
         prediction.transform_predict(tf_idf, pred_mdl, **pred_config)
         
         rel_mdl = relationship.model(**rel_config)
-        estimators_df, ses_df, t_stat_df, rmses = inference.conduct_inference(rel_mdl, tf_idf, pred_mdl, **inf_config)
+        estimators_df, ses_df, t_stat_df = inference.conduct_inference(rel_mdl, tf_idf, pred_mdl, **inf_config)
         
     if 'test' in targets:
         
@@ -69,7 +74,7 @@ def main(targets):
         prediction.transform_predict(tf_idf, pred_mdl, **pred_config)
         
         rel_mdl = relationship.model(**rel_config)
-        estimators_df, ses_df, t_stat_df, rmses = inference.conduct_inference(rel_mdl, tf_idf, pred_mdl, **inf_config)
+        estimators_df, ses_df, t_stat_df = inference.conduct_inference(rel_mdl, tf_idf, pred_mdl, **inf_config)
 
 if __name__ == '__main__':
     

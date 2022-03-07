@@ -26,7 +26,7 @@ USER jovyan
 
 # RUN conda install -y scikit-learn
 
-RUN pip install --default-timeout=1000 --no-cache-dir tweepy unidecode contractions statistics
+RUN pip install --default-timeout=1000 --no-cache-dir tweepy unidecode contractions
 # random csv
 # Override command to disable running jupyter notebook at launch
 # CMD ["/bin/bash"]

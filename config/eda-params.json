@@ -1,0 +1,4 @@
+{
+    "input_path": "data/raw/tweets.csv",
+    "output_path": ["results/figures/eda_1.png", "results/figures/eda_2.png", "results/figures/eda_3.png"]
+}
