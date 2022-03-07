@@ -1,7 +1,6 @@
 import pandas as pd
 import numpy as np
 import scipy
-import statistics
 import random
 import sklearn
 
@@ -36,11 +35,7 @@ def conduct_inference(rel_mdl, tf_idf, pred_mdl, bs, features, input_paths, outp
     true_ses = []
     true_t_stats = []
 
-    i = 0 # counter for number of features
     for feature in features_index:
-        # remove these later
-        
-        i += 1
                 
         bootstrap_results = bootstrap(bs, sample_size, rel_mdl, val_x.tocsr()[:,feature].todense(), val_y, val_y_pred)
         nocorr_results = no_bootstrap(val_x.tocsr()[:,feature].todense(), val_y_pred_nonprob)
@@ -71,7 +66,7 @@ def conduct_inference(rel_mdl, tf_idf, pred_mdl, bs, features, input_paths, outp
     t_stat_df.to_csv(output_paths[2], index=False)
     
     # calculating rmses
-    rmses = {'estimators': [], 'ses': [], 't_stats': []}
+#    rmses = {'estimators': [], 'ses': [], 't_stats': []}
 #     for cat in pd.unique(estimators_df['category']):
 #         error = rmse(estimators_df[estimators_df['category'] == cat]['true'].reset_index(drop=True),
 #                      estimators_df[estimators_df['category'] == cat]['predicted'].reset_index(drop=True))
@@ -88,7 +83,7 @@ def conduct_inference(rel_mdl, tf_idf, pred_mdl, bs, features, input_paths, outp
 #         rmses['t_stats'].append((cat, error))
 
 #     print(rmses)
-    return estimators_df, ses_df, t_stat_df, rmses
+    return estimators_df, ses_df, t_stat_df #, rmses
 
 def rmse(y, y_pred):
     """
@@ -110,7 +105,7 @@ def standard_error(X, y_pred):
     new_x = np.hstack([np.ones((X.shape[0], 1)), X])
 
     V = np.diagflat(np.product(y_pred, axis=1))
-    cov = np.linalg.inv(np.dot(np.dot(new_x.T, V), new_x))
+    cov = np.linalg.pinv(np.dot(np.dot(new_x.T, V), new_x))
     return np.sqrt(np.diag(cov))
 
 def no_bootstrap(val_x, val_y):
@@ -159,8 +154,8 @@ def bootstrap(bs, sample, rel_mdl, val_x, val_y, val_y_pred):
         ses.append(standard_error(sample_x, new_mdl_y)[1])
         
     return {
-        'parametric': [statistics.median(estimators), statistics.median(ses), statistics.median(estimators) / statistics.median(ses)],
-        'non-parametric': [statistics.median(estimators), statistics.stdev(estimators), statistics.median(estimators) / statistics.stdev(estimators)]
+        'parametric': [np.median(estimators), np.median(ses), np.median(estimators) / np.median(ses)],
+        'non-parametric': [np.median(estimators), np.std(estimators), np.median(estimators) / np.std(estimators)]
     }
 
 def to_df(feature_names, true, no_corr, nonparam, param, n):

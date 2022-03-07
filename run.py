@@ -14,7 +14,7 @@ def main(targets):
     if 'data' in targets:
         
         data_config = json.load(open('config/data-params.json'))
-        etl.transform_data(**test_config)
+        etl.transform_data(**data_config)
         
     if 'eda' in targets:
         
@@ -36,7 +36,7 @@ def main(targets):
     if 'inference' in targets:
         
         inf_config = json.load(open('config/inference-params.json'))
-        estimators_df, ses_df, t_stat_df, rmses = inference.conduct_inference(rel_mdl, tf_idf, pred_mdl, **inf_config)
+        estimators_df, ses_df, t_stat_df = inference.conduct_inference(rel_mdl, tf_idf, pred_mdl, **inf_config)
         
     # if 'scrape' in targets:
         
@@ -59,7 +59,7 @@ def main(targets):
         prediction.transform_predict(tf_idf, pred_mdl, **pred_config)
         
         rel_mdl = relationship.model(**rel_config)
-        estimators_df, ses_df, t_stat_df, rmses = inference.conduct_inference(rel_mdl, tf_idf, pred_mdl, **inf_config)
+        estimators_df, ses_df, t_stat_df = inference.conduct_inference(rel_mdl, tf_idf, pred_mdl, **inf_config)
         
     if 'test' in targets:
         
@@ -74,7 +74,7 @@ def main(targets):
         prediction.transform_predict(tf_idf, pred_mdl, **pred_config)
         
         rel_mdl = relationship.model(**rel_config)
-        estimators_df, ses_df, t_stat_df, rmses = inference.conduct_inference(rel_mdl, tf_idf, pred_mdl, **inf_config)
+        estimators_df, ses_df, t_stat_df = inference.conduct_inference(rel_mdl, tf_idf, pred_mdl, **inf_config)
 
 if __name__ == '__main__':
     

@@ -35,6 +35,7 @@ def conduct_eda(input_path, output_path):
     dems = tweets[tweets['party'].str.contains('D')]['tweet_text']
     reps = tweets[tweets['party'].str.contains('R')]['tweet_text']
     
+    # excluding most frequent word 'amp' 
     keys = list(dems.str.split(expand=True).stack().value_counts()[1:11].to_dict().keys())
     vals = list(dems.str.split(expand=True).stack().value_counts()[1:11].to_dict().values())
     sns.barplot(x=keys, y=vals, dodge=False)
@@ -43,6 +44,7 @@ def conduct_eda(input_path, output_path):
     plt.title('Most frequent words used by Democrats')
     plt.savefig(output_path[1])
     
+    # excluding most frequent word 'amp
     keys = list(reps.str.split(expand=True).stack().value_counts()[1:11].to_dict().keys())
     vals = list(reps.str.split(expand=True).stack().value_counts()[1:11].to_dict().values())
     sns.barplot(x=keys, y=vals, dodge=False)
