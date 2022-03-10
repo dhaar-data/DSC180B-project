@@ -13,7 +13,6 @@ This project has already provided pre-scraped Twitter data in `data/out/raw`.
 * Run all:
     * To run the entire process on the dataset specified in `config/data-params.json`, run `python run.py all`
     * To run the entire process on test data in `test/testdata`, run `python run.py test`
-* To replicate our hextri plot in our report, open `hextri_plotting.r` after running all targets and follow instructions in the r file. Figures will be outputted at `results/figures` as png files.
     
 ## Running the Project
 1. Clone this repo
