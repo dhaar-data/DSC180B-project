@@ -1,6 +1,6 @@
 {
     "bs": 100,
-    "features": ["border", "illegals", "god", "defund", "love"],
+    "features": ["border", "illegal", "god", "defund", "happy"],
     "input_paths": ["data/out/clean/X_validation.csv", "data/out/clean/y_validation.csv", "data/out/predicted/y_validation.txt"],
     "output_paths": ["results/inference/estimators.csv", "results/inference/ses.csv", "results/inference/t_stat.csv"]
 }
