@@ -9,7 +9,7 @@
     <body>
 
         <header>
-            <p>DSC180B Project</p>
+            DSC180B Project
         </header>
 
         <nav>
@@ -20,6 +20,7 @@
                 <li class="nav-item"><a href="#methods">Methods</a></li>
                 <li class="nav-item"><a href="#results">Results</a></li>
                 <li class="nav-item"><a href="#conclusion">Conclusion</a></li>
+                <li class="nav-item"><a href="#references">References</a></li>
             </ul>
         </nav>
 
@@ -48,8 +49,7 @@
                 inference approach interacts with Natural Language Processing models and how 
                 this method can be generally applicable towards analyses in political science.
             </p>
-            <br>
-
+            <br><br>
             <h2 id="methodology">Methodology</h2>
             <p>
                 The postpi bootstrap approach by Wang et al. is a method that aims to correct 
@@ -59,16 +59,39 @@
                 accuracy without worrying about the impact of the complexity of the model on the 
                 bootstrap approach. The reason why it is not dependent is because this approach 
                 utilizes an easily generalizable and low-dimensional relationship between 
-                observed and predicted outcomes. 
-                <br><br>
+                observed and predicted outcomes.
+            </p>
+            <br><br>
+            <p>
+                The postpi bootstrap approach relies on four assumptions about our data:
+            </p>
+            <ol>
+                <li>
+                    There must be a training and testing dataset with observed outcomes to 
+                    train the prediction and relationship model.
+                </li>
+                <li>
+                    Observed and predicted outcomes should have a simple, low-dimensional 
+                    relationship.
+                </li>
+                <li>
+                    The relationship model that describes the relationship between observed 
+                    and predicted outcomes should be consistent for future data.
+                </li>
+                <li>
+                    The features used for inference should be present within the training and 
+                    testing data, and used in the prediction model.
+                </li>
+            </ol>
+            <br><br>
+            <p>
                 An implementation of this algorithm is provided below:
             </p>
             <br>
             <img id="psuedocode" src="images/psuedocode.png"/>
-            <br>
-
+            <br><br>
             <h2 id="data">Data</h2>
-            <br>
+            <br><br>
             <h3>Data Collection and Cleaning</h3>
             <br>
             <p>
@@ -88,7 +111,7 @@
                 punctuation, and unicode characters. Additionally, we also removed stopwords like 
                 ‘the’, ‘an’, ‘are’, etc. using the dictionary of stopwords provided by the NLTK package.
             </p>
-            <br>
+            <br><br>
             <h3>Exploratory Data Analysis</h3>
             <br>
             <p>
@@ -161,10 +184,9 @@
                     party–only ‘today’ and ‘year’ is a word that both parties use in common. 
                 </figcaption>
             </figure>
-            <br>
-
+            <br><br>
             <h2 id="methods">Methods</h2>
-            <br>
+            <br><br>
             <h3>Prediction and Relationship Model</h3>
             <br>
             <p>
@@ -177,13 +199,13 @@
                 feature, and an SVC model for prediction, with a linear kernel and C=1.5. For the 
                 relationship model that takes in the predicted and observed outcomes, we used a K-NN model. 
             </p>
-            <br>
+            <br><br>
             <h3>Feature Selectiom for Inference</h3>
             <p>
                 We reviewed relevant literature in political science to develop a criteria for choosing our 
                 features.
                 <br><br>
-                In Twitter Language Use Reflects Psychological Differences between Democrats and Republicans, 
+                In <i>Twitter Language Use Reflects Psychological Differences between Democrats and Republicans</i>, 
                 Sylwester and Pulver discuss the differences between Democrats and Republicans in the context 
                 of previous findings and their own discoveries. For example, Haidt’s Moral Foundations model, 
                 which identifies “harm, fairness, liberty, ingroup, authority, and purity” as the pillars of 
@@ -195,6 +217,11 @@
                 identity…, government and law…, and their opponents” while Democrats were focused on emphasizing 
                 their uniqueness and generally expressed more anxiety and emotion.
                 <br><br>
+                These findings are somewhat in line with our own observations made through the data–as stated 
+                before, we found that Republican tweets made references to their opponents on a much larger scale 
+                than Democrats, and also made mention of the American people–their national identity–plenty of 
+                times as well.
+                <br><br>
                 We also reviewed Chen et al.’s study, #Election2020: the first public Twitter dataset on the 2020 
                 US Presidential election. Chen et al. found that more conservative Twitter users tended to share 
                 more topics related to conspiracy theories and “public health and voting misinformation” compared 
@@ -202,22 +229,16 @@
                 <br><br>
                 Taking these two sources into consideration, our criteria for selecting features was whether or 
                 not they would fall into either liberal or conservative tendencies as discovered by either source. 
-                If a feature implied a discussion of harm or fairness, or was an expression of uniqueness, anxiety, 
-                or emotion, then we anticipated that this feature would connect more to Democratic-aligned tweets. 
-                On the other hand, if a feature discussed liberty, purity, religion, national identity, government 
-                and law, or Republican opponents, or implied that the topic at hand was associated with public 
-                health or voting misinformation, said feature may be connected to Republican-aligned tweets. 
-                <br><br>
-                We ended up selecting 5 features to conduct inference:
+                We ended up selecting 5 features to conduct inference, which are:
             </p>
             <br>
             <table id="words">
                 <tr>
                     <td>border</td>
-                    <td>illegals</td>
+                    <td>illegal</td>
                     <td>god</td>
                     <td>defund</td>
-                    <td>love</td>
+                    <td>happy</td>
                 </tr>
             </table>
             <br>
@@ -228,11 +249,387 @@
             </p>
             <br>
 
-            <!-- <h2 id="results">Results</h2>
+            <h2 id="results">Results</h2>
             <br>
-
+            <p>
+                After conducting inference using the bootstrap postpi algorithm, we found that the parametric 
+                bootstrap method worked best to correct for inference. As such, for the inference we interpret 
+                below we will only be considering the corrections made using the parametric method, and not 
+                the non-parametric bootstrap method. 
+            </p>
+            <br><br>
+            <h3>Inference on "border"</h3>
+            <br>
+            <table class="feature-table">
+                <tr>
+                    <td>Feature: border</td>
+                    <td>Actual Values</td>
+                    <td>No Correction</td>
+                    <td>Non-Parametrix</td>
+                    <td>Parametric</td>
+                </tr>
+                <tr>
+                    <td>Coefficient</td>
+                    <td>7.49</td>  
+                    <td>8.27</td>
+                    <td>7.50</td>
+                    <td>7.50</td>
+                </tr>
+                <tr>
+                    <td>SE</td>
+                    <td>0.85</td>
+                    <td>0.87</td>
+                    <td>0.39</td>
+                    <td>0.84</td>
+                </tr>
+                <tr>
+                    <td>T-Stat</td>
+                    <td>8.84</td>
+                    <td>9.56</td>
+                    <td>19.28</td>
+                    <td>8.97</td>
+                </tr>
+            </table>
+            <br><br>
+            <p>
+                The table shows the results of conducting inference on the word "border". The bootstrap 
+                postpi algorithm corrects coefficients, SEs, and t-statistics as mentioned above and the 
+                results below shows that the algorithm works as intended.
+            </p>
+            <ul>
+                <li>
+                    The true beta coefficient has a value of 7.491, but in the case that we didn't have 
+                    the observed values, using the bootstrap postpi algorithm would correct the 
+                    coefficient to 7.498. The corrected value is a better estimate for the coefficient 
+                    compared to the no correction approach value of 8.272.  The coefficient was corrected 
+                    by an absolute difference of 0.007.
+                </li>
+                <li>
+                    The SE for a no correction approach results in an absolute difference of 0.018 to the 
+                    true value, but after correction, the absolute difference decreases to 0.011.
+                </li>
+                <li>
+                    The t-statistic for the no correction approach results in an absolute difference of 
+                    0.72 while the corrected approach resulted in an absolute difference of 0.125.
+                </li>
+            </ul>
+            <br><br>
+            <p>
+                These results are meaningful because the smaller differences would suggest that we have a 
+                good bootstrap model that corrects inference using predicted values instead of observed 
+                values. 
+            </p>
+            <br><br>
+            <p>
+                A positive coefficient for the word "border" implies that this feature is a good predictor 
+                for the Republican party. To test whether the feature is a statistically significant 
+                predictor we must evaluate the t-statistic. If the null hypothesis was true-that there is 
+                no significant difference between Republicans and Democrats in their use of the word 
+                "border"—then we would expect a sample with no difference. Since the corrected 
+                t-statistic of ~ 8.966 is greater than 2, we have 95% confidence that there is a positive 
+                difference between our sample data and the null hypothesis. This implies that the word 
+                "border" is a good predictor for the Republican party.
+            </p>
+            <br><br>
+            <h3>Inference on "illegal"</h3>
+            <br>
+            <table class="feature-table">
+                <tr>
+                    <td>Feature: illegal</td>
+                    <td>Actual Values</td>
+                    <td>No Correction</td>
+                    <td>Non-Parametrix</td>
+                    <td>Parametric</td>
+                </tr>
+                <tr>
+                    <td>Coefficient</td>
+                    <td>5.79</td>  
+                    <td>6.39</td>
+                    <td>5.83</td>
+                    <td>5.83</td>
+                </tr>
+                <tr>
+                    <td>SE</td>
+                    <td>1.10</td>
+                    <td>1.10</td>
+                    <td>0.37</td>
+                    <td>1.09</td>
+                </tr>
+                <tr>
+                    <td>T-Stat</td>
+                    <td>5.28</td>
+                    <td>5.81</td>
+                    <td>15.81</td>
+                    <td>5.34</td>
+                </tr>
+            </table>
+            <br><br>
+            <p>
+                The table shows the results of conducting inference on the word "illegal".
+            </p>
+            <ul>
+                <li>
+                    The true beta coefficient has a value of 5.790, but in the case that we did not have 
+                    the observed values, using the bootstrap postpi algorithm would correct the 
+                    coefficient to 5.832. The corrected value is a better estimate for the coefficient 
+                    compared to the no correction approach value of 6.392. 
+                </li>
+                <li>
+                    The SE for the no correction approach results in an absolute difference of 0.004 but 
+                    after running the bootstrap postpi algorithm, the absolute difference decreased to 
+                    0.003.
+                </li>
+                <li>
+                    The t-statistic for a no correction approach results in an absolute difference of 
+                    0.529 while the corrected absolute difference resulted in 0.051.
+                </li>
+            </ul>
+            <br><br>
+            <p>
+                These results are meaningful because the smaller differences would suggest that we have a 
+                good bootstrap model that corrects inference using predicted values instead of observed 
+                values. 
+            </p>
+            <br>
+            <p>
+                A positive coefficient for the word "illegal" implies that this feature is a good predictor 
+                for the Republican party. Since the corrected t-statistic of ~ 5.335 is greater than 2, we 
+                have 95% confidence that this feature is a statistically significant predictor.  
+            </p>
+            <br><br>
+            <h3>Inference on "god"</h3>
+            <br>
+            <table class="feature-table">
+                <tr>
+                    <td>Feature: god</td>
+                    <td>Actual Values</td>
+                    <td>No Correction</td>
+                    <td>Non-Parametrix</td>
+                    <td>Parametric</td>
+                </tr>
+                <tr>
+                    <td>Coefficient</td>
+                    <td>4.90</td>  
+                    <td>5.45</td>
+                    <td>4.78</td>
+                    <td>4.78</td>
+                </tr>
+                <tr>
+                    <td>SE</td>
+                    <td>1.03</td>
+                    <td>1.04</td>
+                    <td>0.37</td>
+                    <td>1.01</td>
+                </tr>
+                <tr>
+                    <td>T-Stat</td>
+                    <td>4.76</td>
+                    <td>5.25</td>
+                    <td>12.79</td>
+                    <td>4.72</td>
+                </tr>
+            </table>
+            <br><br>
+            <p>
+                The table shows the results of conducting inference on the word "god".
+            </p>
+            <ul>
+                <li>
+                    The true beta coefficient has a value of 4.90, but in the case that we didn't have the 
+                    observed values, using the bootstrap postpi algorithm corrects the coefficient to 4.78. 
+                    The corrected value is a better estimate for the coefficient compared to the no 
+                    correction approach value of 5.45.  The coefficient was corrected by an absolute 
+                    difference of 0.55. 
+                </li>
+                <li>
+                    The SE for a no correction approach results in an absolute difference of 0.007 to the 
+                    true value, but after correction, the absolute difference increased to 0.018.
+                </li>
+                <li>
+                    The t-statistic for the no correction approach results in an absolute difference of 
+                    0.493 while the corrected approach resulted in an absolute difference of 0.036.
+                </li>
+            </ul>
+            <br><br>
+            <p>
+                These results are meaningful because the smaller differences would suggest that we have a 
+                good bootstrap model that corrects inference using predicted values instead of observed 
+                values. 
+            </p>
+            <br>
+            <p>
+                A positive coefficient for the word "god" implies that this feature is a good predictor for 
+                the Republican party. To test whether the feature is a statistically significant predictor 
+                we must evaluate the t-statistic. Since the corrected t-statistic of ~ 4.720  is greater 
+                than 2, we have 95% confidence that this feature is a statistically significant predictor. 
+            </p>
+            <br><br>
+            <h3>Inference on "defund"</h3>
+            <br>
+            <table class="feature-table">
+                <tr>
+                    <td>Feature: defund</td>
+                    <td>Actual Values</td>
+                    <td>No Correction</td>
+                    <td>Non-Parametrix</td>
+                    <td>Parametric</td>
+                </tr>
+                <tr>
+                    <td>Coefficient</td>
+                    <td>1.18</td>  
+                    <td>1.51</td>
+                    <td>1.08</td>
+                    <td>1.08</td>
+                </tr>
+                <tr>
+                    <td>SE</td>
+                    <td>1.92</td>
+                    <td>1.92</td>
+                    <td>0.39</td>
+                    <td>1.92</td>
+                </tr>
+                <tr>
+                    <td>T-Stat</td>
+                    <td>0.62</td>
+                    <td>0.79</td>
+                    <td>2.75</td>
+                    <td>0.56</td>
+                </tr>
+            </table>
+            <br><br>
+            <p>
+                The table shows the results of conducting inference on the word "defund".
+            </p>
+            <ul>
+                <li>
+                    The true beta coefficient has a value of 1.181, but in the case that we didn't have 
+                    the observed values, using the bootstrap postpi algorithm would correct the 
+                    coefficient to 1.076. The corrected value is a better estimate for the coefficient 
+                    compared to the no correction approach value of 1.511.  The coefficient was corrected 
+                    by an absolute difference of 0.105.
+                </li>
+                <li>
+                    The SE for a no correction approach results in an absolute difference of 0.002 but 
+                    after running the bootstrap postpi algorithm, the absolute difference decreased to 
+                    0.0001.
+                </li>
+                <li>
+                    The T-Statistic for a no correction approach results in an absolute difference of 
+                    0.173 while the corrected absolute difference resulted in 0.055. These results are 
+                    meaningful because the smaller differences would suggest that we have a good bootstrap 
+                    model that corrects inference using predicted values instead of observed values. 
+                </li>
+            </ul>
+            <br><br>
+            <p>
+                Interestingly, conducting inference on the feature "defund" yielded a positive coefficient, 
+                which implies that this feature is a good predictor for the Republican party, and not the 
+                Democratic party contrary to our hypothesis. 
+            </p>
+            <br>
+            <p>
+                To test whether the feature is a statistically significant predictor we must evaluate the 
+                t-statistic. Since the corrected T-Statistic of ~ 0.560 is less than 2 and greater than -2, 
+                we have 95% confidence that there is not a positive difference between our sample data and 
+                the null hypothesis.  
+            </p>
+            <br><br>
+            <h3>Inference on "happy"</h3>
+            <br>
+            <table class="feature-table">
+                <tr>
+                    <td>Feature: happy</td>
+                    <td>Actual Values</td>
+                    <td>No Correction</td>
+                    <td>Non-Parametrix</td>
+                    <td>Parametric</td>
+                </tr>
+                <tr>
+                    <td>Coefficient</td>
+                    <td>0.93</td>  
+                    <td>1.14</td>
+                    <td>0.96</td>
+                    <td>0.96</td>
+                </tr>
+                <tr>
+                    <td>SE</td>
+                    <td>0.50</td>
+                    <td>0.50</td>
+                    <td>0.43</td>
+                    <td>0.50</td>
+                </tr>
+                <tr>
+                    <td>T-Stat</td>
+                    <td>1.89</td>
+                    <td>2.29</td>
+                    <td>2.21</td>
+                    <td>1.92</td>
+                </tr>
+            </table>
+            <br><br>
+            <p>
+                The table shows the results of conducting inference on the word "happy".
+            </p>
+            <ul>
+                <li>
+                    The true beta coefficient has a value of 0.935, but in the case that we didn't 
+                    have the observed values, using the bootstrap postpi algorithm would correct the 
+                    coefficient to 0.959. The corrected value is a better estimate for the coefficient 
+                    compared to the no correction approach value of 1.137.
+                </li>
+                <li>
+                    The SE for a no correction approach results in an absolute difference of 0.001 but 
+                    after running the bootstrap postpi algorithm, the absolute difference increased to 
+                    0.0045.
+                </li>
+                <li>
+                    The t-statistic for a no correction approach results in an absolute difference of 
+                    0.406 while the corrected absolute difference resulted in 0.0321.
+                </li>
+            </ul>
+            <br><br>
+            <p>
+                These results are meaningful because the smaller differences would suggest that we have a 
+                good bootstrap model that corrects inference using predicted values instead of observed 
+                values. 
+            </p>
+            <br>
+            <p>
+                Once again, we find that inference on the feature "happy" also yielded a positive 
+                coefficient, which tells us that this feature is a good predictor for the Republican party, 
+                and not the Democratic party. This is, again, contrary to what we hypothesized would be the 
+                case. 
+            </p>
+            <br>
+            <p>
+                To test whether the feature is a statistically significant predictor we must evaluate the 
+                t-statistic. Since the corrected T-Statistic of ~ 1.920 is less than 2 and greater than -2, 
+                we have 95% confidence that there is no positive difference between our sample data and the 
+                null hypothesis. 
+            </p>
+            <br><br>
             <h2 id="conclusion">Conclusion</h2>
-            <br> -->
+            <br>
+            <p>
+                In conclusion, we have demonstrated that the bootstrap postpi algorithm first developed by 
+                Wang et al. is shown to correct predicted outcomes when observed outcomes are not available 
+                on political data. In such a field where collecting observed outcomes can be exceedingly 
+                time-consuming and expensive to collect, this is a significant finding that may open doors to 
+                some studies that may otherwise be too difficult to conduct. 
+            </p>
+            <br><br>
+            <h2 id="references">References</h2>
+            <p>
+                Chen, E., Deb, A. & Ferrara, E. #Election2020: the first public Twitter dataset on the 2020 
+                US Presidential election. J Comput Soc Sc (2021). https://doi.org/10.1007/s42001-021-00117-9
+                <br><br>
+                Sylwester K, Purver M (2015) Twitter Language Use Reflects Psychological Differences between 
+                Democrats and Republicans. PLOS ONE 10(9): e0137422. https://doi.org/10.1371/journal.pone.0137422
+                <br><br>
+                Wang, Siruo, Tyler H. McCormick, and Jeffrey T. Leek. "Methods for correcting inference based 
+                on outcomes predicted by machine learning." Proceedings of the National Academy of Sciences 
+                117.48 (2020): 30266-30275.
+            </p>
 
         </div>
 
